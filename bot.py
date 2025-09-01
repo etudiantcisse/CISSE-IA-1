@@ -18,12 +18,10 @@ def stream_response(user_message: str):
         temperature=1.2,
         top_p=1,
         presence_penalty=0,
-        stream=True,
+        stream=False,
     )
-
-    for chunk in response:
-        if chunk.choices and chunk.choices[0].delta.content:
-            print(chunk.choices[0].delta.content, end="", flush=True)
+    # Afficher la réponse complète directement
+    print(response.choices[0].message.content, end="", flush=True)
 
 
 if __name__ == "__main__":
