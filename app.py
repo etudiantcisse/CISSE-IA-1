@@ -14,8 +14,13 @@ CORS(app)
 
 def clean_special_characters(text):
     """Nettoyer les caractères spéciaux et entités HTML dans le texte"""
+    import unicodedata
+    
     # Décoder les entités HTML
     text = html.unescape(text)
+    
+    # Normaliser Unicode (décomposer puis recomposer)
+    text = unicodedata.normalize('NFKD', text)
     
     # Remplacer les caractères spéciaux courants
     replacements = {
@@ -29,21 +34,34 @@ def clean_special_characters(text):
         '…': '...',  # points de suspension
         '&nbsp;': ' ',  # espace insécable
         '\u00a0': ' ',  # espace insécable (unicode)
+        '\u00ad': '',  # trait d'union conditionnel (supprimé)
         '\u2022': '•',  # puce
         '\u2013': '-',  # tiret en
         '\u2014': '-',  # tiret em
         '\u2018': "'",  # apostrophe gauche
         '\u2019': "'",  # apostrophe droite
+        '\u201a': "'",  # virgule inversée
         '\u201c': '"',  # guillemet gauche
         '\u201d': '"',  # guillemet droit
+        '\u201e': '"',  # guillemet bas
         '\u2026': '...',  # points de suspension
+        '\u2039': '<',  # guillemet simple gauche
+        '\u203a': '>',  # guillemet simple droit
+        '\ufeff': '',   # BOM (Byte Order Mark)
     }
     
     for old, new in replacements.items():
         text = text.replace(old, new)
     
-    # Nettoyer les espaces multiples
-    text = re.sub(r'\s+', ' ', text)
+    # Nettoyer les espaces multiples et les caractères de contrôle
+    text = re.sub(r'[\x00-\x1f\x7f-\x9f]', '', text)  # Supprimer caractères de contrôle
+    text = re.sub(r'\s+', ' ', text)  # Normaliser les espaces
+    
+    # Encoder puis décoder pour forcer l'UTF-8 propre
+    try:
+        text = text.encode('utf-8', errors='ignore').decode('utf-8')
+    except:
+        pass
     
     return text.strip()
 
