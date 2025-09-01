@@ -215,3 +215,93 @@ textarea:focus-visible {
 .dark .hover-lift:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 20px 48px rgba(0, 0, 0, 0.2);
 }
+
+/* Mobile Responsive Improvements */
+@media (max-width: 768px) {
+  /* Ensure mobile viewport is properly set */
+  html {
+    font-size: 14px;
+  }
+  
+  /* Optimize touch targets for mobile */
+  button, .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve text readability on mobile */
+  h1, h2, h3 {
+    line-height: 1.3;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-padding {
+    padding: 0.75rem;
+  }
+  
+  /* Optimize input fields for mobile */
+  input, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Sidebar overlay on mobile */
+  .mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 40;
+  }
+  
+  /* Mobile menu animation */
+  .mobile-menu-enter {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+  }
+  
+  .mobile-menu-enter-active {
+    transform: translateX(0);
+  }
+  
+  /* Hide desktop-only elements on mobile */
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Ensure full height on mobile */
+  .mobile-full-height {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for modern browsers */
+  }
+}
+
+/* Tablet specific styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .tablet-optimized {
+    padding: 1rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1024px) {
+  .desktop-optimized {
+    padding: 1.5rem;
+  }
+}
+
+/* Safe area support for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-padding {
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}

@@ -82,7 +82,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
 
       {/* Input Area */}
       <div className={`
-        relative flex items-end space-x-3 p-4 rounded-2xl 
+        relative flex items-end space-x-2 md:space-x-3 p-3 md:p-4 rounded-2xl 
         bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border
         transition-all duration-300 hover:shadow-2xl
         ${isFocused 
@@ -122,8 +122,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           rows={1}
           className="flex-1 bg-transparent text-gray-800 dark:text-white placeholder-gray-500 
                      dark:placeholder-gray-400 border-none outline-none text-sm resize-none
-                     leading-relaxed py-2"
-          style={{ minHeight: '24px', maxHeight: '120px' }}
+                     leading-relaxed py-2 min-h-[24px]"
+          style={{ maxHeight: '120px' }}
         />
         
         {/* Send Button */}
@@ -131,8 +131,8 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           type="submit"
           disabled={!canSend}
           className={`
-            group relative p-3 rounded-full transition-all duration-300
-            transform hover:scale-110 active:scale-95
+            group relative p-2 md:p-3 rounded-full transition-all duration-300
+            transform hover:scale-110 active:scale-95 shrink-0
             ${canSend
               ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40' 
               : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
@@ -140,7 +140,7 @@ export const MessageInput: React.FC<MessageInputProps> = ({
           `}
           aria-label="Envoyer le message"
         >
-          <Send className={`w-5 h-5 transition-transform duration-200 ${
+          <Send className={`w-4 h-4 md:w-5 md:h-5 transition-transform duration-200 ${
             canSend ? 'group-hover:translate-x-0.5 group-hover:-translate-y-0.5' : ''
           }`} />
           

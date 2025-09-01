@@ -28,11 +28,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   );
 
   return (
-    <div className={`
-      relative h-full bg-white/10 dark:bg-black/20 backdrop-blur-xl border-r border-white/20 dark:border-gray-700/30
-      transition-all duration-300 ease-in-out flex flex-col
-      ${isCollapsed ? 'w-16' : 'w-80'}
-    `}>
+    <>
+      {/* Overlay pour mobile */}
+      {!isCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+          onClick={onToggleCollapse}
+        />
+      )}
+      
+      <div className={`
+        relative h-full bg-white/10 dark:bg-black/20 backdrop-blur-xl border-r border-white/20 dark:border-gray-700/30
+        transition-all duration-300 ease-in-out flex flex-col z-50
+        ${isCollapsed ? 'w-0 md:w-16' : 'w-80 fixed md:relative inset-y-0 left-0'}
+      `}>
       {/* Header */}
       <div className="p-4 border-b border-white/10 dark:border-gray-700/30">
         <div className="flex items-center justify-between">
@@ -142,5 +151,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
       </div>
     </div>
+    </>
   );
 };

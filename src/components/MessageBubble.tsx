@@ -31,20 +31,20 @@ const MessageBubbleComponent: React.FC<MessageBubbleProps> = ({ message, isLates
   return (
     <div 
       className={`
-        flex items-start space-x-3 group opacity-0 animate-fade-in
-        ${isUser ? 'flex-row-reverse space-x-reverse' : ''}
+        flex items-start space-x-2 md:space-x-3 group opacity-0 animate-fade-in
+        ${isUser ? 'flex-row-reverse space-x-reverse md:space-x-reverse' : ''}
         ${isLatest ? 'animate-slide-up' : ''}
       `}
     >
       <Avatar type={message.sender} />
       
       <div className={`
-        max-w-xs lg:max-w-md xl:max-w-lg relative
+        max-w-[85%] sm:max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg relative
         transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl
       `}>
         {/* Message Content */}
         <div className={`
-          px-4 py-3 rounded-2xl backdrop-blur-xl border shadow-xl
+          px-3 py-2 md:px-4 md:py-3 rounded-2xl backdrop-blur-xl border shadow-xl
           ${isUser 
             ? 'bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white border-blue-400/20 rounded-br-md' 
             : 'bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-white border-white/20 dark:border-gray-700/50 rounded-bl-md'

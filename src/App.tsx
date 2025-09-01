@@ -19,6 +19,22 @@ function App() {
     sendMessage,
   } = useChat();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détecter si on est sur mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      // Sur mobile, fermer la sidebar par défaut
+      if (window.innerWidth < 768) {
+        setSidebarCollapsed(true);
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Reset conversations handler
   const handleResetConversations = () => {
@@ -36,19 +52,22 @@ function App() {
     <div className={`h-screen flex transition-colors duration-500 ${theme === 'dark' ? 'dark' : ''}`}>
       <BackgroundEffect />
       <ThemeToggle theme={theme} onToggle={toggleTheme} />
-      <div className="relative z-10 flex w-full">
-        {/* Sidebar */}
-        <Sidebar
-          conversations={conversations}
-          activeConversationId={activeConversationId}
-          onNewConversation={createNewConversation}
-          onSelectConversation={selectConversation}
-          onDeleteConversation={deleteConversation}
-          isCollapsed={sidebarCollapsed}
-          onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
+      <div className="relative z-10 flex w-full h-full">
+        {/* Sidebar - cachée sur mobile quand fermée */}
+        <div className={`${sidebarCollapsed && isMobile ? 'hidden' : ''}`}>
+          <Sidebar
+            conversations={conversations}
+            activeConversationId={activeConversationId}
+            onNewConversation={createNewConversation}
+            onSelectConversation={selectConversation}
+            onDeleteConversation={deleteConversation}
+            isCollapsed={sidebarCollapsed}
+            onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+          />
+        </div>
+        
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           <ChatInterface
             messages={activeConversation?.messages || []}
             isLoading={isLoading}
@@ -58,6 +77,8 @@ function App() {
             onToggleTheme={toggleTheme}
             onResetConversations={handleResetConversations}
             onNewConversation={createNewConversation}
+            isMobile={isMobile}
+            onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
           />
         </div>
       </div>

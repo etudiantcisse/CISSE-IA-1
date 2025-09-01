@@ -16,6 +16,8 @@ export interface ChatInterfaceProps {
   onToggleTheme: () => void;
   onResetConversations?: () => void;
   onNewConversation?: () => void;
+  isMobile?: boolean;
+  onToggleSidebar?: () => void;
 }
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({
@@ -27,6 +29,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   onToggleTheme,
   onResetConversations,
   onNewConversation,
+  isMobile = false,
+  onToggleSidebar,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +49,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
   return (
     <div className="flex flex-col h-full">
-  <ChatHeader onOpenSettings={() => setSettingsOpen(true)} />
+  <ChatHeader 
+    onOpenSettings={() => setSettingsOpen(true)} 
+    isMobile={isMobile}
+    onToggleSidebar={onToggleSidebar}
+  />
       <SettingsPanel
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
@@ -54,16 +62,16 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         onResetConversations={onResetConversations}
       />
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth">
+      <div className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 md:space-y-6 scroll-smooth">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
-            <div className="text-center space-y-4 opacity-0 animate-fade-in">
-              <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 
+            <div className="text-center space-y-4 opacity-0 animate-fade-in px-4">
+              <div className="w-12 h-12 md:w-16 md:h-16 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-purple-600 
                               flex items-center justify-center shadow-lg">
-                <span className="text-2xl">🤖</span>
+                <span className="text-xl md:text-2xl">🤖</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                <h3 className="text-base md:text-lg font-semibold text-gray-800 dark:text-white mb-2">
                   Commencez une nouvelle conversation
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
@@ -88,7 +96,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         <div ref={messagesEndRef} />
       </div>
       {/* Input Area */}
-      <div className="p-6 border-t border-white/10 dark:border-gray-700/50 
+      <div className="p-3 md:p-6 border-t border-white/10 dark:border-gray-700/50 
                       bg-white/5 dark:bg-black/10 backdrop-blur-xl">
         <MessageInput 
           onSendMessage={onSendMessage} 
