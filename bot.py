@@ -1,12 +1,6 @@
 
 from openai import OpenAI
 
-client = OpenAI(
-    base_url = "https://api.scaleway.ai/5378dadd-4f88-4884-ba7b-15f0f386168b/v1",
-    api_key = "26f351de-2e15-4eb1-93d6-74f8ead4b565"
-)
-
-
 def stream_response(user_message: str):
     response = client.chat.completions.create(
         model="qwen3-235b-a22b-instruct-2507",
@@ -31,8 +25,13 @@ def stream_response(user_message: str):
     # Afficher la réponse complète directement
     print(response.choices[0].message.content, end="", flush=True)
 
+client = OpenAI(
+    base_url = "https://api.scaleway.ai/5378dadd-4f88-4884-ba7b-15f0f386168b/v1",
+    api_key = "26f351de-2e15-4eb1-93d6-74f8ead4b565"
+)
 
 if __name__ == "__main__":
     import sys
     prompt = " ".join(sys.argv[1:])
     stream_response(prompt)
+def stream_response(user_message: str):
