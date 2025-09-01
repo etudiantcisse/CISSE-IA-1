@@ -11,7 +11,15 @@ def stream_response(user_message: str):
     response = client.chat.completions.create(
         model="qwen3-235b-a22b-instruct-2507",
         messages=[
-            { "role": "system", "content": "You are a helpful assistant" },
+            {
+                "role": "system",
+                "content": (
+                    "Réponds toujours en français, de façon naturelle, claire et simple. "
+                    "N'utilise pas de caractères spéciaux typographiques (tirets, apostrophes courbes, guillemets spéciaux, etc.), "
+                    "pas d'emoji, pas de balises, pas de style assistant, pas de formalisme IA. "
+                    "Fais comme un humain qui explique à l'oral."
+                )
+            },
             { "role": "user", "content": user_message },
         ],
         max_tokens=512,
