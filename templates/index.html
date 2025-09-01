@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Style Bot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="gpt-bg"></div>
+    <div class="gpt-layout">
+        <aside class="gpt-sidebar">
+            <div class="gpt-sidebar-header">
+                <div class="gpt-sidebar-logo">IA</div>
+                <div class="gpt-sidebar-title">Mon Chatbot</div>
+            </div>
+            <nav class="gpt-sidebar-nav">
+                <button id="clear-btn" title="Effacer la conversation">Nouvelle conversation</button>
+                <!-- Place pour historique ou liens rapides -->
+            </nav>
+            <footer class="gpt-sidebar-footer">
+                <span class="gpt-status"><span class="gpt-dot"></span>En ligne</span>
+            </footer>
+        </aside>
+        <div class="chatgpt-container">
+            <header class="gpt-header">
+                <div class="gpt-title">Assistant IA</div>
+            </header>
+            <div class="gpt-welcome">
+                <h2>Bienvenue sur votre assistant IA</h2>
+                <p>Posez vos questions, demandez des conseils, ou laissez-vous inspirer par l’IA.<br>
+                <span class="gpt-tips">Exemples :</span></p>
+                <ul class="gpt-examples">
+                    <li>"Explique-moi la théorie de la relativité simplement"</li>
+                    <li>"Aide-moi à rédiger une lettre de motivation"</li>
+                    <li>"Quels sont les pays francophones en Afrique ?"</li>
+                    <li>"Donne-moi une idée de projet Python"</li>
+                </ul>
+            </div>
+            <main id="chat-box" class="gpt-chat-box"></main>
+            <form id="chat-form" autocomplete="off" class="gpt-form">
+                <input type="text" id="user-input" placeholder="Envoyer un message à l'IA..." required />
+                <button type="submit" title="Envoyer"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"></path><path d="M22 2L15 22L11 13L2 9L22 2Z"></path></svg></button>
+            </form>
+            <div id="typing-indicator" class="gpt-typing-indicator" style="display:none;">
+                <span></span><span></span><span></span>
+                <span class="typing-text">Le bot écrit...</span>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
